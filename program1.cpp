@@ -1,5 +1,5 @@
 //Ahnaf Raihan
-//CS375 - program1
+//program1.cpp
 
 /* program1.cpp contains methods: int max, int lcs, and int main. program1.cpp serves to demonstrate the use of bottom-up dynamic programming in order to solve the LCS problem. */
 
