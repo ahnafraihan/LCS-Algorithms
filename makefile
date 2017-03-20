@@ -1,5 +1,4 @@
 # Ahnaf Raihan
-# CS375 - Programming Assignment 1
 
 all:	program1 program2 program3
 
