@@ -24,4 +24,3 @@ program3.o:	program3.cpp
 
 clean:
 	rm -f *.o program1 program2 program3
-
