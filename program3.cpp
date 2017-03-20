@@ -1,5 +1,5 @@
 //Ahnaf Raihan
-//CS375 - program3
+//program3.cpp
 
 /* program3.cpp contains methods: int max, int lcs, and int main. program3.cpp serves to demonstrate the use of recursive programming in a top-down fashion using memoization in order to solve the LCS problem. */
 
