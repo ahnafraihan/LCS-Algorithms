@@ -1,1 +1,2 @@
 # LCS-Algorithms
+# BestFirstSearch
