@@ -1,3 +1,1 @@
-# LCS-Algorithms
-# BestFirstSearch
 # SortingAlgorithms
