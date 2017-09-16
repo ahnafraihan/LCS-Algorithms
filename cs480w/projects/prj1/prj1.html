@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../../assets/styles/article.css" rel="stylesheet" type="text/css" />
+  <title>Project 1</title>
+
+</head>
+<body>
+<div id="page">
+<span id="opennav"><i class="material-icons">&#xe5d2;</i></span>
+<div id="nav">
+<div id="closenav"><i class="material-icons">&#xe5cd;</i></div>
+<ul>
+<li><a href="../../index.html">Home</a></li>
+<li><a href="../../docs/index.html">Documentation</a></li>
+<li><a href="../../exams-quizzes/index.html">Exams & Quizzes</a></li>
+<li><a href="../../hws/index.html">Homeworks</a></li>
+<li><a href="../../misc/index.html">Miscellaneous</a></li>
+<li><a href="../../projects/index.html">Projects</a></li>
+<li><a href="../../slides/index.html">Slides</a></li>
+
+</ul>
+</div> <!-- #nav -->
+<div id="main">
+  <div id="header">
+<h1>Programming for the Web</h1>
+</div> <!-- #header -->
+<div id="content">
+<section data-coord="prj1.umt:1:0"><h1 data-coord="prj1.umt:1:0">Project 1</h1><p data-coord="prj1.umt:3:0"><strong data-coord="prj1.umt:3:0">Due Date</strong>: 9/17 by 11:59p
+</p><p data-coord="prj1.umt:5:0"><strong data-coord="prj1.umt:5:0">Important Reminder</strong>: As per the course <em data-coord="prj1.umt:5:110"><a href="../../misc/academic-honesty-statement/academic-honesty-policy.html" data-coord="prj1.umt:5:110">Academic Honesty Statement</a></em>,
+cheating of any kind will minimally result in receiving an F letter
+grade for the entire course.
+</p><section data-coord="prj1.umt:9:0"><h2 data-coord="prj1.umt:9:0">Aims of This Project</h2><p data-coord="prj1.umt:12:0">The aims of this project are as follows:
+</p><ul data-coord="prj1.umt:14:0"><li data-coord="prj1.umt:14:0"><p data-coord="prj1.umt:14:4">To gain familiarity with the programming environment you will
+be using for this course.
+</p></li><li data-coord="prj1.umt:17:0"><p data-coord="prj1.umt:17:4">To provide experience with writing a non-trivial JavaScript
+program.
+</p></li><li data-coord="prj1.umt:20:0"><p data-coord="prj1.umt:20:4">To understand the use and limitations of using aynchronous
+callbacks.
+</p></li></ul></section><section data-coord="prj1.umt:23:0"><h2 data-coord="prj1.umt:23:0">Specifications</h2><p data-coord="prj1.umt:27:0">Write a command-line nodejs program which is invoked as:
+</p><pre data-coord="prj1.umt:30:0">$ db_ops.js DB_URL OP
+</pre><p data-coord="prj1.umt:33:0"><samp data-coord="prj1.umt:33:0">DB_URL</samp> is the URL for a mongo database instance and <samp data-coord="prj1.umt:33:54">OP</samp> is a JSON
+string
+</p><p data-coord="prj1.umt:36:0"><samp data-coord="prj1.umt:36:0">OP</samp> specifies the <a href="https://docs.mongodb.com/manual/crud/" data-coord="prj1.umt:36:60">CRUD</a>
+operation which is being performed on the database specified by
+<samp data-coord="prj1.umt:36:129">DB_URL</samp>.  It must have the following top-level members:
+</p><dl data-coord="prj1.umt:40:0"><dt data-coord="prj1.umt:40:2"> op </dt><dd data-coord="prj1.umt:41:0"><p data-coord="prj1.umt:41:4">Must have a value which must be one of <samp data-coord="prj1.umt:41:43">"create"</samp>, <samp data-coord="prj1.umt:41:55">"read"</samp>,
+<samp data-coord="prj1.umt:41:69">"update"</samp> or <samp data-coord="prj1.umt:41:83">"delete"</samp>.
+</p></dd><dt data-coord="prj1.umt:44:2">collection</dt><dd data-coord="prj1.umt:45:0"><p data-coord="prj1.umt:45:4">Must specify the name of the collection on which the operation
+specified by <samp data-coord="prj1.umt:45:84">op</samp> is performed.
+</p></dd></dl><p data-coord="prj1.umt:49:0">Additionally, <samp data-coord="prj1.umt:49:14">OP</samp> may also have a top-level member <samp data-coord="prj1.umt:49:52">args</samp> with
+specific form depending on the value of <samp data-coord="prj1.umt:49:104">op</samp>.  Specifically,
+<samp data-coord="prj1.umt:49:125">args</samp> must be specified as follows:
+</p><dl data-coord="prj1.umt:53:0"><dt data-coord="prj1.umt:53:0">When <samp data-coord="prj1.umt:53:5">op</samp> is <samp data-coord="prj1.umt:53:13">create</samp></dt><dd data-coord="prj1.umt:54:0"><p data-coord="prj1.umt:54:2"><samp data-coord="prj1.umt:54:2">args</samp> is mandatory and must be a non-empty list containing JSON
+ objects to be inserted into the collection.
+</p></dd><dt data-coord="prj1.umt:57:0">When <samp data-coord="prj1.umt:57:5">op</samp> is <samp data-coord="prj1.umt:57:13">read</samp>, <samp data-coord="prj1.umt:57:21">update</samp> or <samp data-coord="prj1.umt:57:33">delete</samp></dt><dd data-coord="prj1.umt:58:0"><p data-coord="prj1.umt:58:2"><samp data-coord="prj1.umt:58:2">args</samp> is optional and should default to <samp data-coord="prj1.umt:58:43">{}</samp>.  If given,
+it should specify a <a href="https://docs.mongodb.com/manual/reference/method/db.collection.find/#db.collection.find" data-coord="prj1.umt:58:173">query</a> for a mongo-db <samp data-coord="prj1.umt:58:194">find()</samp> command.
+</p></dd></dl><p data-coord="prj1.umt:62:0">When <samp data-coord="prj1.umt:62:5">op</samp> is <samp data-coord="prj1.umt:62:13">update</samp>, <samp data-coord="prj1.umt:62:23">OP</samp> must contain an additional top-level member
+<samp data-coord="prj1.umt:62:72">fn</samp>.  It must specify a 2-element JSON list specifying a mapper function
+used for transforming the JSON elements selected by the <samp data-coord="prj1.umt:62:202">args</samp> specifier
+before updating the collection.  Specifically, the first element of the list
+must be a string containing a js identifier specifying the parameter name
+for the mapper function and the second element of the list must be a string
+containing the body of the mapper function.
+</p><p data-coord="prj1.umt:70:0">The action taken by the program depends on the <samp data-coord="prj1.umt:70:47">op</samp> field of the <samp data-coord="prj1.umt:70:65">OP</samp>
+argument to the program.
+</p><dl data-coord="prj1.umt:73:0"><dt data-coord="prj1.umt:73:2">create</dt><dd data-coord="prj1.umt:74:0"><p data-coord="prj1.umt:74:4">The json objects specified by <samp data-coord="prj1.umt:74:34">args</samp> are added to the specified collection
+in the database.
+</p></dd><dt data-coord="prj1.umt:77:2">read</dt><dd data-coord="prj1.umt:78:0"><p data-coord="prj1.umt:78:4">The objects selected from the collection by the query specified by
+<samp data-coord="prj1.umt:78:75">args</samp> are listed on standard output using <samp data-coord="prj1.umt:78:118">console.log()</samp>.
+</p></dd><dt data-coord="prj1.umt:81:2">update</dt><dd data-coord="prj1.umt:82:0"><p data-coord="prj1.umt:82:4">The objects selected from the collection by the query specified by
+<samp data-coord="prj1.umt:82:75">args</samp> are updated in the collection after transformation by
+the mapper function specified by <samp data-coord="prj1.umt:82:173">fn</samp>.
+</p></dd><dt data-coord="prj1.umt:86:2">delete</dt><dd data-coord="prj1.umt:87:0"><p data-coord="prj1.umt:87:4">The objects selected from the collection by the query specified by
+<samp data-coord="prj1.umt:87:75">args</samp> are deleted from the collection.
+</p></dd></dl><p data-coord="prj1.umt:90:0">Note that all commands other than <samp data-coord="prj1.umt:90:34">read</samp> return silently on success.
+</p><p data-coord="prj1.umt:92:0">The program should attempt to do a reasonable job of error detection.
+When an error is detected, it may report the error either by a
+exception trace or by a suitable message printed on standard error
+(using <samp data-coord="prj1.umt:92:207">console.error()</samp>).
+</p></section><section data-coord="prj1.umt:98:0"><h2 data-coord="prj1.umt:98:0">A Sample Log</h2><p data-coord="prj1.umt:101:0">An annotated log of the program in operation is shown below.  The log
+shows the manipulation of some data within the <samp data-coord="prj1.umt:101:117">test</samp> collection in
+the <samp data-coord="prj1.umt:101:142">test_db</samp> database of a mongo-db installation on the localhost
+running on the default port.
+</p><p data-coord="prj1.umt:106:0">Since it is tedious to repeatedly type JSON at the command-line, some
+of the JSON is stored in files and spliced into the command-line using
+backquotes.  Note also that special characters within the JSON must be
+protected from the shell by quoting the JSON either using
+single-quotes or double-quotes (the latter when splicing using
+backquotes).
+</p><pre data-coord="prj1.umt:114:0">#create env var for DB URL (use setenv URL mongodb... for csh variants).
+$ export URL=mongodb://localhost:27017/test_db
+
+#run mongo shell to show test collection in db is currently empty
+$ mongo --eval 'db.test.find({})' test_db
+MongoDB shell version: 3.2.11
+connecting to: test_db
+
+#list out file to be used for inserting entries
+$ cat create.json
+{
+  "op": "create",
+  "collection": "test",
+  "args": [
+    { "a": 1 },
+    { "b": 2 },
+    { "c": 3 }
+  ]
+}
+
+#add entries to test
+$ ./db_ops.js $URL "`cat create.json`"
+
+#run mongo shell to show entries were inserted
+$ mongo --eval 'db.test.find({})' test_db
+MongoDB shell version: 3.2.11
+connecting to: test_db
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff1"), "a" : 1 }
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff2"), "b" : 2 }
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff3"), "c" : 3 }
+
+#use a read op to show entries inserted
+$ ./db_ops.js $URL '{"op": "read", "collection": "test" }'
+{ _id: 59ac8f45557cf41ebdacaff1, a: 1 }
+{ _id: 59ac8f45557cf41ebdacaff2, b: 2 }
+{ _id: 59ac8f45557cf41ebdacaff3, c: 3 }
+
+#filter read to only select {a: 1} entry
+ ./db_ops.js $URL \
+   '{"op": "read", "collection": "test", "args": { "a": 1 } }'
+{ _id: 59ac8f45557cf41ebdacaff1, a: 1 }
+
+#no results if we filter using {a: 2}
+$ ./db_ops.js $URL \
+  '{"op": "read", "collection": "test", "args": { "a": 2 } }'
+
+#delete {a: 1} entry
+$ ./db_ops.js $URL \
+  '{"op": "delete", "collection": "test", "args": { "a": 1 } }'
+
+#use mongo shell to verify entry deleted
+$ mongo --eval 'db.test.find({})' test_db
+MongoDB shell version: 3.2.11
+connecting to: test_db
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff2"), "b" : 2 }
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff3"), "c" : 3 }
+
+#use read op to verify entry deleted
+$ ./db_ops.js $URL '{"op": "read", "collection": "test" }'
+{ _id: 59ac8f45557cf41ebdacaff2, b: 2 }
+{ _id: 59ac8f45557cf41ebdacaff3, c: 3 }
+
+#list out file used for updating entries
+$ cat update.json
+{
+  "op": "update",
+  "collection": "test",
+  "args": { },
+  "fn": [ "x",
+         "{ return typeof(x['b']) !== 'undefined' ? { b: 42 } : x; }" ]
+}
+
+#update collection test as per update.json OP.
+$ ./db_ops.js $URL "`cat update.json`"
+
+#read test collection to verify update
+$ ./db_ops.js $URL '{"op": "read", "collection": "test" }'
+{ _id: 59ac8f45557cf41ebdacaff2, b: 42 }
+{ _id: 59ac8f45557cf41ebdacaff3, c: 3 }
+
+#use mongo shell to verify update
+$ mongo --eval 'db.test.find({})' test_db
+MongoDB shell version: 3.2.11
+connecting to: test_db
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff2"), "b" : 42 }
+{ "_id" : ObjectId("59ac8f45557cf41ebdacaff3"), "c" : 3 }
+
+#delete all entries in test collection
+$ ./db_ops.js $URL '{"op": "delete", "collection": "test" }'
+
+#read test collection to verify delete
+$ ./db_ops.js $URL '{"op": "read", "collection": "test" }'
+$
+</pre></section><section data-coord="prj1.umt:209:0"><h2 data-coord="prj1.umt:209:0">Provided Files</h2><p data-coord="prj1.umt:212:0">The <a href="./files" data-coord="prj1.umt:212:15">files</a> directory contains the following files which
+provide the basic skeleton for your project:
+</p><dl data-coord="prj1.umt:215:0"><dt data-coord="prj1.umt:215:2"> <a href="./files/db_ops.js" data-coord="prj1.umt:215:22">db_ops.js</a></dt><dd data-coord="prj1.umt:216:0"><p data-coord="prj1.umt:216:4">The <em data-coord="prj1.umt:216:8">main</em> program for your project.  Does trivial processing
+of the command-line arguments.  You should not need to change
+this file.
+</p></dd><dt data-coord="prj1.umt:220:2"> <a href="./files/db_ops_lib.js" data-coord="prj1.umt:220:26">db_ops_lib.js</a> </dt><dd data-coord="prj1.umt:221:0"><p data-coord="prj1.umt:221:4">The guts of the code for your project.  You should write your
+code here.
+</p></dd><dt data-coord="prj1.umt:224:2"> <a href="files/README" data-coord="prj1.umt:224:17">README</a> </dt><dd data-coord="prj1.umt:225:0"><p data-coord="prj1.umt:225:4">A README which minimally you must fill-in with your identification
+information by replacing the <samp data-coord="prj1.umt:225:104">XXXX</samp> entries.  You may also add
+any other information which is relevant to your submission.
+</p></dd></dl></section><section data-coord="prj1.umt:229:0"><h2 data-coord="prj1.umt:229:0">Hints</h2><p data-coord="prj1.umt:232:0">You may do the project on any machine which has compatible nodejs and
+mongodb installations.  However, it is entirely your responsibility to
+make sure that the code works on your gcloud vm before submission.
+</p><p data-coord="prj1.umt:236:0">The following steps are merely advisory:
+</p><ol data-coord="prj1.umt:238:0"><li data-coord="prj1.umt:238:0"><p data-coord="prj1.umt:238:4">Review material you will need for this project; the material for
+JSON, testing and mongo-db covered in class as well as online
+documentation.  You should get into the habit of making extensive
+use of search engines to find necessary information.
+</p><p data-coord="prj1.umt:243:4">You can use the nodejs <a href="https://nodejs.org/api/repl.html" data-coord="prj1.umt:243:63">REPL</a>
+and the <em data-coord="prj1.umt:243:122"><a href="https://docs.mongodb.com/manual/mongo/" data-coord="prj1.umt:243:122">mongo shell</a></em> to play
+around with js and mongo-db respectively.
+</p></li><li data-coord="prj1.umt:247:0"><p data-coord="prj1.umt:247:4">Get started by using <samp data-coord="prj1.umt:247:25">npm init</samp> to create a skeleton project.
+Specifically, go to the directory where you want to keep
+your projects and create and initialize a sub-directory for
+this project:
+</p><pre data-coord="prj1.umt:254:0">      $ mkdir db_ops
+      $ cd db_ops
+      $ mkdir test
+      $ npm init -y 
+      ...
+      {
+        "name": "db_ops",
+	...
+      }
+
+
+      $ npm install mongodb --save
+      npm notice created a lockfile ...
+      ...
+      #ensure that downloaded modules are never checked into git
+      $ echo node_modules &gt; .gitignore
+</pre></li><li data-coord="prj1.umt:272:0"><p data-coord="prj1.umt:272:4">Set up your project to use <a href="https://mochajs.org/" data-coord="prj1.umt:272:55">mocha</a> for
+testing and add <samp data-coord="prj1.umt:272:85">bin</samp> and <samp data-coord="prj1.umt:272:95">files</samp> top-level entries to the
+<samp data-coord="prj1.umt:272:132">package.json</samp> generated during the previous step:
+</p><pre data-coord="prj1.umt:277:0">       "scripts": {
+         "test": "mocha"
+       },
+       "bin" {
+         "db_ops": "./db_ops.js"
+       },
+       "files": [
+         "db_ops.js", "db_ops_lib.js", "README"
+       ],
+</pre></li><li data-coord="prj1.umt:288:0"><p data-coord="prj1.umt:288:4">Copy over the files from the <a href="./files" data-coord="prj1.umt:288:44">files</a> directory to
+your project directory.  If you have completed the previous
+steps you should be able to run <samp data-coord="prj1.umt:288:163">./db_ops.js</samp> and at least
+get back a usage message.
+</p></li><li data-coord="prj1.umt:294:0"><p data-coord="prj1.umt:294:4">Decide how to structure your code.  You need to handle each of the
+4 different CRUD commands; it seems reasonable to do a dispatch on
+the <samp data-coord="prj1.umt:294:150">op</samp> value of the <samp data-coord="prj1.umt:294:168">OP</samp> specification to a separate js function
+dedicated to each command.
+</p></li><li data-coord="prj1.umt:299:0"><p data-coord="prj1.umt:299:4">Implement the <samp data-coord="prj1.umt:299:18">create</samp> command using the mongo docs.  It is
+imperative that you ensure that the db connection is closed before
+exit.  Since the insertion code will run asynchronously via a
+callback (or promise), it is <strong data-coord="prj1.umt:299:234">absolutely necessary</strong> to ensure that
+the db close is done only at completion of the callback.  Test
+interactively or by adding tests in the <samp data-coord="prj1.umt:299:383">test</samp> directory (the
+latter is preferred).
+</p></li><li data-coord="prj1.umt:307:0"><p data-coord="prj1.umt:307:4">Implement the <samp data-coord="prj1.umt:307:18">delete</samp> command as in the previous step.
+</p></li><li data-coord="prj1.umt:309:0"><p data-coord="prj1.umt:309:4">Implement the <samp data-coord="prj1.umt:309:18">read</samp> command.
+</p></li><li data-coord="prj1.umt:311:0"><p data-coord="prj1.umt:311:4">Implement the <samp data-coord="prj1.umt:311:18">update</samp> command.  This is the only command which is
+slightly non-trivial.  You will need to create the mapper function
+specified by the <samp data-coord="prj1.umt:311:163">fn</samp> specification in the <samp data-coord="prj1.umt:311:189">OP</samp>.  You can do so
+using the provided <samp data-coord="prj1.umt:311:233">newMapper()</samp> function.  If you call
+<samp data-coord="prj1.umt:311:274">newMapper()</samp> giving it the 2 elements of the <samp data-coord="prj1.umt:311:320">fn</samp> array, it
+will return to you a new function.  If you store this function in
+a variable <samp data-coord="prj1.umt:311:420">mapper</samp>, then you can map a data value <samp data-coord="prj1.umt:311:460">d</samp> using
+<samp data-coord="prj1.umt:311:474">mapper.call(null, d)</samp>.
+</p><p data-coord="prj1.umt:320:4">The operation will need to read the db entries specified by
+<samp data-coord="prj1.umt:320:68">args</samp>; map each returned entry using the mapper function before
+writing out the mapped value to the db.
+</p></li><li data-coord="prj1.umt:324:0"><p data-coord="prj1.umt:324:4">Test to ensure that you have met all the project specifications.
+</p></li></ol></section><section data-coord="prj1.umt:326:0"><h2 data-coord="prj1.umt:326:0">Debugging Your Code</h2><p data-coord="prj1.umt:329:0">You can of course simply use <samp data-coord="prj1.umt:329:29">console.log()</samp> or <samp data-coord="prj1.umt:329:48">console.error()</samp> to
+help debug your project.  However, it may be worth your while to use a
+full-fledged debugger.  Look around on the web, possibilities include
+using an IDE like eclipse or the debugger built into chrome.  Note
+that you will not be able to use GUI applications running on your
+gcloud VM (unless you upgrade it; in that case you will need to turn
+it off when not in use to conserve your coupon balance).
+</p></section><section data-coord="prj1.umt:337:0"><h2 data-coord="prj1.umt:337:0">Project Submission</h2><p data-coord="prj1.umt:340:0">Follow the the <em data-coord="prj1.umt:340:48"><a href="../../misc/gitlab/gitlab.html" data-coord="prj1.umt:340:48">gitlab instructions</a></em> in order to set up an account
+on <a href="https://gitlab.com" data-coord="prj1.umt:340:125">gitlab.com.</a>
+</p><ul data-coord="prj1.umt:344:0"><li data-coord="prj1.umt:344:0"><p data-coord="prj1.umt:344:4">Submit your project files in a top-level <samp data-coord="prj1.umt:344:45">submit/db_ops</samp>
+directory of your <samp data-coord="prj1.umt:344:83">cs480w</samp> or <samp data-coord="prj1.umt:344:95">cs580w</samp> project in gitlab.
+</p></li><li data-coord="prj1.umt:347:0"><p data-coord="prj1.umt:347:4">You should <strong data-coord="prj1.umt:347:15">not</strong> submit executables or object files.  You should
+submit all the files you used from the <a href="./files" data-coord="prj1.umt:347:123">files</a> directory,
+whether you modified them or not.
+</p></li><li data-coord="prj1.umt:351:0"><p data-coord="prj1.umt:351:4">Make sure that you edit the <samp data-coord="prj1.umt:351:32">README</samp> to provide
+your ID information by replacing the <samp data-coord="prj1.umt:351:93">XXXX</samp> entries.
+</p></li></ul><p data-coord="prj1.umt:354:0">If your project is incomplete on the due date, please add a file
+called <samp data-coord="prj1.umt:354:72">.LATE</samp> in your directory so that it will not be graded.  Once
+the project has been completed late, please remote that file and email
+the grader who has been assigned to your course:
+<em data-coord="prj1.umt:354:289"><a href="mailto:sbhoite1@binghamton.edu" data-coord="prj1.umt:354:289">CS 480W</a></em>,
+<em data-coord="prj1.umt:354:334"><a href="mailto:skoliba1@binghamton.edu" data-coord="prj1.umt:354:334">CS 580W</a></em>.
+</p></section></section>
+</div> <!-- #content -->
+</div> <!-- #main -->
+<div id="footer">&nbsp;</div>
+</div> <!-- #page -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../assets/scripts/nav.js"></script>
+</body>
+</html>
